@@ -4,7 +4,26 @@ Two comprehensive practice exams that simulate real CKA exam conditions. These a
 
 ## Quick Start
 
-### First Time Taking a Mock Exam?
+### Easiest Way: Use the Timed Exam Runner
+
+```bash
+# Start Mock Exam 01 with countdown timer (120 minutes)
+bash scripts/run-mock-exam.sh 1
+
+# Or Mock Exam 02
+bash scripts/run-mock-exam.sh 2
+
+# Or shorten to 90 minutes for a quick test
+bash scripts/run-mock-exam.sh 1 90
+```
+
+The script will:
+- ✅ Show all questions
+- ✅ Start a countdown timer (red warning in last 5 min)
+- ✅ Remind you to save answers in `/tmp/cka-exam-answers/`
+- ✅ Show solutions after exam
+
+### Manual Approach (If Preferred)
 
 1. **Read the questions file ONLY** — Do not open solutions until complete
 2. **Set a 2-hour timer** — This is exam length; stick to it
@@ -149,6 +168,89 @@ These mocks are slightly **harder** than real exams, so scoring 12+/15 on mocks 
 - ❌ Editing wrong file (copy-paste from wrong exercise)
 - ❌ Forgetting namespace (default vs specified)
 - ❌ Spending too long on one question (5 min? move on)
+
+---
+
+## Resources During Mock Exams
+
+Keep these open while practicing:
+
+| Resource | When to Use | Location |
+|----------|------------|----------|
+| **DIAGNOSTICS.md** | Something breaks (Pod Pending, etc.) | Top-level directory |
+| **REAL_EXAM_PATTERNS.md** | Understand what patterns to expect | Top-level directory |
+| **cka-cheatsheet.md** | Quick reference (commands, syntax) | `cheatsheet/` |
+| **DOMAINS.md** | Understand exam focus areas | Top-level directory |
+| **kubernetes.io/docs** | Official docs (allowed during exam) | Online |
+
+### Recommended Flow
+
+```
+Before Exam:
+1. Read REAL_EXAM_PATTERNS.md (know what to expect)
+2. Review DOMAINS.md (refresh domain weights)
+
+During Exam:
+1. First 5 min: Read questions, reference REAL_EXAM_PATTERNS.md
+2. While solving: DIAGNOSTICS.md if stuck
+3. Reference: cka-cheatsheet.md for kubectl syntax
+
+After Exam:
+1. Score using GRADING.md scale
+2. Identify weak domain in DOMAINS.md
+3. Do 2-3 related exercises for remediation
+4. Retake mock if score < 12/15
+```
+
+---
+
+## After Each Mock Exam
+
+### Scoring Interpretation
+
+Use the scoring table above. Then:
+
+1. **Score 15/15:** You're ready → Take killer.sh, schedule real exam
+2. **Score 12-14:** You're borderline → Review failed questions + related exercises
+3. **Score 10-11:** You're barely passing → Spend 1+ week on weak domains, retake mock
+4. **Score <10:** Not ready → Fundamentals review, redo exercises, retake after 1+ week
+
+### What To Do With Mistakes
+
+For each wrong question:
+1. Find it in `MOCK-EXAM-*-SOLUTIONS.md`
+2. Read the explanation (why your answer was wrong)
+3. Map to related exercise: `DOMAINS.md` shows domain → `exercises/` folder
+4. Redo that exercise with gotchas in mind
+5. Mark in GRADING.md as "revisited"
+
+### Sample Fix Workflow
+
+```
+Q4: "Create NetworkPolicy to deny all ingress"
+Answer: Incorrect (forgot to include default-deny egress rule)
+
+Map to domain: Networking (Exercise 05)
+Redo: exercises/05-networkpolicy/
+Fix: Review "What tripped me up" section
+RetestL Take mock again week later
+
+Result: Q4 now scored correctly
+```
+
+---
+
+## Final Exam Day Readiness
+
+Before scheduling real CKA exam, verify:
+
+✅ Scored 12+/15 on both mock exams (or close)
+✅ Can consistently diagnose using DIAGNOSTICS.md
+✅ Understand domain weights from REAL_EXAM_PATTERNS.md
+✅ Passed killer.sh (if available in your cluster)
+✅ Refreshed all 7 red-flag exercises (04, 05, 11, 12, 16, 28, 29)
+
+If all ✅ → Schedule exam. You're ready for 85%+ score.
 
 ### Success Tips ✓
 - ✓ Use imperative commands when possible (faster than YAML)
