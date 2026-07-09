@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: {{ include "monitoring.fullname" . }}
+  labels:
+    app: {{ include "monitoring.name" . }}
+
+spec:
+
+  replicas: {{ .Values.replica_count }}
+
+  selector:
+    matchLabels:
+      app: {{ include "monitoring.name" . }}
+
+  template:
+
+    metadata:
+      labels:
+        app: {{ include "monitoring.name" . }}
+
+    spec:
+
+      containers:
+
+      - name: monitoring
+
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        {{- if .Values.persistence.enabled }}
+
+        - name: monitoring-storage
+          mountPath: /data
+
+        {{- end }}
+
+      volumes:
+
+      {{- if .Values.persistence.enabled }}
+
+      - name: monitoring-storage
+
+        persistentVolumeClaim:
+          claimName: {{ include "monitoring.fullname" . }}
+
+      {{- end }}

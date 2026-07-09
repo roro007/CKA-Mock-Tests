@@ -1,0 +1,16 @@
+replica_count: 1
+
+image:
+  repository: nginx
+  tag: "1.29"
+
+service:
+  type: ClusterIP
+  port: 80
+
+persistence:
+  enabled: false
+
+storage_size: 10Gi
+
+storageClassName: ""
