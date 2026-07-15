@@ -1,3 +1,0 @@
-replica_count: 3
-storage_size: 50Gi
-persistence: true
