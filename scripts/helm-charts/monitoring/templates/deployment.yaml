@@ -32,7 +32,7 @@ spec:
         - containerPort: 80
 
         volumeMounts:
-        {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistence }}
 
         - name: monitoring-storage
           mountPath: /data
@@ -41,7 +41,7 @@ spec:
 
       volumes:
 
-      {{- if .Values.persistence.enabled }}
+      {{- if .Values.persistence }}
 
       - name: monitoring-storage
 
