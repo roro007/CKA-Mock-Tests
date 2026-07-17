@@ -4,10 +4,23 @@ metadata:
   name: database
   namespace: default
 spec:
-  nodeName: worker-2
+  nodeName: node01
   containers:
   - name: postgres
     image: postgres:16
+    env:
+    - name: POSTGRES_PASSWORD
+      value: password
+    ports:
+    - containerPort: 5432
+    volumeMounts:
+    - name: db-data
+      mountPath: /var/lib/postgresql/data
+  volumes:
+  - name: db-data
+    hostPath:
+      path: /var/lib/postgresql-data
+      type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
 kind: Deployment
